@@ -1,0 +1,33 @@
+{
+  "name": "lumina",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build:packages": "turbo run build --filter=\"./packages/**\"",
+    "build:server": "pnpm -C apps/server build",
+    "build:web": "pnpm -C apps/web build",
+    "build:all": "pnpm run build:packages && pnpm run pkg:entries:toDist && pnpm run build:server && pnpm run build:web",
+    "pkg:entries:toDist": "node scripts/prepare-packages-entries.cjs toDist",
+    "pkg:entries:toSrc": "node scripts/prepare-packages-entries.cjs toSrc",
+    "test:api:deps": "docker compose -f test/docker-compose.yml up -d --wait",
+    "test:api:deps:down": "docker compose -f test/docker-compose.yml down -v",
+    "test:api": "cross-env NODE_ENV=test dotenv -e .env.test -- pnpm -C apps/server test-local"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.6",
+    "cross-env": "^7.0.3",
+    "dotenv-cli": "^7.4.4",
+    "eslint": "^8.42.0",
+    "turbo": "^2.5.6"
+  },
+  "resolutions": {
+    "@ant-design/pro-components": "2.8.6",
+    "antd": "5.24.5",
+    "vite": "^6.2.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typscript": "5.8.0"
+  },
+  "packageManager": "pnpm@9.15.9"
+}

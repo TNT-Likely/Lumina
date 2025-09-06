@@ -1,0 +1,24 @@
+{
+  "name": "@lumina/logger",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "pino": "^9.3.2",
+    "pino-pretty": "^11.2.2",
+    "pino-std-serializers": "^7.0.0",
+    "pino-http": "^10.3.0",
+    "pino-multi-stream": "^6.0.0",
+    "sonic-boom": "^3.8.1",
+    "rotating-file-stream": "^3.2.4",
+    "cls-hooked": "^4.2.2"
+  },
+  "devDependencies": {
+    "typescript": "*"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "@workflow/jest",
+  "version": "1.0.0",
+  "private":true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ts-jest": "^29.1.0"
+  }
+}

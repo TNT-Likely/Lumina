@@ -1,0 +1,25 @@
+{
+  "name": "@lumina/types",
+  "version": "0.1.0",
+  "description": "Lumina 公共 TypeScript 类型定义包",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "lint": "eslint src/**/*.ts",
+    "type-check": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.1",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "*"
+  },
+  "license": "MIT"
+  ,
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ]
+}

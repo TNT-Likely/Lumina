@@ -1,0 +1,42 @@
+{
+  "name": "@lumina/notify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "jest": {
+    "preset": "@workflow/jest/node"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "@types/jest": "^29.5.1",
+    "@types/node": "^20.3.2",
+    "@types/nodemailer": "^7.0.0",
+    "@workflow/jest": "workspace:*",
+    "eslint": "^8.0.1",
+    "eslint-config-custom": "workspace:*",
+    "jest": "^29.5.0",
+    "tsconfig": "workspace:*",
+    "typescript": "*"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "crypto-js": "^4.2.0",
+    "form-data": "^4.0.4",
+    "nodemailer": "^7.0.5",
+    "@lumina/storage": "workspace:*"
+  }
+  ,
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ]
+}

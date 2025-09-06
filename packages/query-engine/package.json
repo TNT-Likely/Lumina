@@ -1,0 +1,52 @@
+{
+  "name": "@lumina/query-engine",
+  "version": "0.1.0",
+  "description": "SQL query engine with plugin-based connector support for multiple databases (MySQL, PostgreSQL, SQLite, etc.)",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src --ext .ts",
+    "type-check": "tsc --noEmit",
+    "test": "echo 'no tests yet'"
+  },
+  "keywords": [
+    "sql",
+    "query",
+    "engine",
+    "plugin",
+    "mysql",
+    "postgresql",
+    "sqlite"
+  ],
+  "author": "TNT-Likely",
+  "license": "MIT",
+  "dependencies": {
+    "@clickhouse/client": "^1.12.1",
+    "@elastic/elasticsearch": "^9.1.1",
+    "@types/node": "*",
+    "mongodb": "^6.18.0",
+    "mssql": "^11.0.1",
+    "mysql2": "^3.6.0",
+    "oracledb": "^6.9.0",
+    "pg": "^8.16.3",
+    "sqlite": "^5.1.1"
+  },
+  "devDependencies": {
+    "@types/mssql": "^9.1.7",
+    "@types/oracledb": "^6.9.1",
+    "@types/pg": "^8.15.5",
+    "eslint": "*",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "*"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ]
+}

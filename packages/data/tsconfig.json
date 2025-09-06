@@ -1,0 +1,16 @@
+{
+    "extends": "tsconfig/base.json",
+    "compilerOptions": {
+    "target": "ES2017",
+    "module": "CommonJS",
+        "rootDir": "./src",
+        "outDir": "./dist"
+    },
+    "include": [
+        "./src"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+}

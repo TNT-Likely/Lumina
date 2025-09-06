@@ -1,0 +1,241 @@
+/* App.less - 自定义布局样式 */
+
+/* 整体容器背景 */
+.custom-layout-container {
+  /* 清爽的浅灰背景，贴近参考图 */
+  background: #f7f9fc;
+  min-height: 100vh;
+}
+
+/* 头部样式 */
+.custom-header {
+  background: #fff !important;
+  border-bottom: 1px solid #eef2f7;
+  box-shadow: 0 6px 18px rgba(22, 27, 29, 0.06);
+  height: 64px;
+  line-height: 64px;
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* 左侧 Logo 区域 */
+.header-left {
+  flex: 0 0 auto;
+  min-width: 200px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  height: 32px;
+  width: auto;
+}
+
+.site-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  letter-spacing: 0.5px;
+}
+
+/* 中间导航区域 */
+.header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  max-width: 600px;
+}
+
+.main-navigation {
+  border-bottom: none !important;
+}
+
+.main-navigation .ant-menu-item {
+  border-bottom: 2px solid transparent !important;
+  transition: all 0.3s ease;
+  margin: 0 8px;
+  padding: 0 16px;
+  border-radius: 6px 6px 0 0;
+}
+
+.main-navigation .ant-menu-item:hover {
+  background: rgba(24, 144, 255, 0.08) !important;
+  color: #1890ff !important;
+}
+
+.main-navigation .ant-menu-item-selected {
+  background: rgba(24, 144, 255, 0.1) !important;
+  color: #1890ff !important;
+  border-bottom-color: #1890ff !important;
+}
+
+.main-navigation .ant-menu-item-selected::after {
+  border-bottom: 2px solid #1890ff;
+}
+
+.main-navigation .ant-menu-item a {
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+/* 右侧用户区域 */
+.header-right {
+  flex: 0 0 auto;
+  min-width: 80px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.user-avatar-wrapper {
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar-wrapper:hover {
+  background: rgba(24, 144, 255, 0.08);
+}
+
+.user-avatar {
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 主要内容区域 */
+.main-content {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+.content-wrapper {
+  margin: 0 auto;
+  // padding: 16px;
+  height: calc(100vh - 64px);
+}
+
+/* 用户下拉菜单样式 */
+.ant-dropdown-menu {
+  background: #fff;
+  border: 1px solid #eef2f7;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(22, 27, 29, 0.06);
+  padding: 8px 0;
+  min-width: 160px;
+}
+
+.ant-dropdown-menu-item {
+  transition: all 0.3s ease;
+  margin: 2px 8px;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.ant-dropdown-menu-item:hover {
+  background: rgba(24, 144, 255, 0.08);
+}
+
+.ant-dropdown-menu-item a {
+  color: #1f2937;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.ant-dropdown-menu-item:hover a {
+  color: #1890ff;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .header-content {
+    padding: 0 16px;
+  }
+
+  .content-wrapper {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    height: auto;
+    padding: 8px 16px;
+  }
+
+  .custom-header {
+    height: auto;
+    line-height: normal;
+  }
+
+  .header-left {
+    min-width: auto;
+    margin-bottom: 8px;
+  }
+
+  .header-center {
+    max-width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .main-navigation {
+    width: 100%;
+  }
+
+  .main-navigation .ant-menu-item {
+    margin: 0 4px;
+    padding: 0 12px;
+  }
+
+  .site-title {
+    font-size: 16px;
+  }
+
+  .content-wrapper {
+    padding: 12px;
+    min-height: calc(100vh - 120px);
+  }
+}
+
+/* 无码页面特殊处理 */
+.layout2 {
+  background: transparent;
+}
+
+.layout2 .custom-header {
+  display: none;
+}
+
+/* 加载动画 */
+.ant-spin-container {
+  background: transparent;
+}
+
+/* 确保内容区域在透明背景下的可读性 */
+/* 已移除对 antd 核心样式的大量复写；当前仅通过 AntD tokens 定制。 */

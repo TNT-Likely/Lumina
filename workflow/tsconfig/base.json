@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "composite": false,
+    "declaration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": false,
+    "isolatedModules": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "preserveWatchOutput": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "paths": {
+      "@types/*": [
+        "./*"
+      ]
+    },
+    "lib": [
+      "ES2017",
+      "ES2017.String",
+      "DOM"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

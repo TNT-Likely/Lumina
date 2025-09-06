@@ -1,0 +1,37 @@
+{
+  "name": "@lumina/subscription",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "lint": "eslint src --ext .ts",
+    "type-check": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "dependencies": {
+  "@lumina/logger": "workspace:*",
+    "@lumina/data": "workspace:*",
+    "@lumina/notify": "workspace:*",
+    "@lumina/scheduler": "workspace:*",
+    "@lumina/storage": "workspace:*",
+    "@lumina/types": "workspace:*",
+    "cron": "^3.1.0",
+    "cron-parser": "^5.3.0",
+    "ioredis": "^5.7.0",
+    "puppeteer": "^24.16.2",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "eslint": "*",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "*"
+  }
+  ,
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ]
+}

@@ -1,0 +1,152 @@
+name: CI & Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (semver, e.g. 1.2.3)'
+        required: true
+      prerelease:
+        description: 'Mark as prerelease'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: lumina-ci-${{ github.workflow }}-${{ github.ref || github.run_id }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Setup pnpm via corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # - name: Eslint check
+      #   run: pnpm -w turbo run lint
+
+      - name: Type check
+        run: pnpm -w turbo run type-check
+
+      - name: Switch package entries to dist
+        run: pnpm run pkg:entries:toDist
+
+      - name: Build all
+        run: pnpm run build:all
+
+      - name: Smoke start server (Egg)
+        run: |
+          node -e "process.exit(0)" # placeholder if no runtime deps
+          pnpm -C apps/server start &
+          sleep 5
+          ps aux | grep egg-server-api | grep -v grep
+          pnpm -C apps/server stop
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    concurrency:
+      group: lumina-release-${{ github.workflow }}-${{ github.ref || github.run_id }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine version and base tag
+        id: vars
+        shell: bash
+        run: |
+          INPUT_VERSION="${{ github.event.inputs.version }}"
+          if [[ -n "$INPUT_VERSION" ]]; then
+            VERSION="$INPUT_VERSION"
+          else
+            if [[ "${GITHUB_REF:-}" == refs/tags/v* ]]; then
+              TAG_REF="${GITHUB_REF##*/}"
+              VERSION="${TAG_REF#v}"
+            else
+              VERSION=$(node -p "require('./package.json').version || '0.0.0'")
+            fi
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          PREV_TAG=$(git describe --tags --abbrev=0 --match 'v*' 2>/dev/null || echo '')
+          echo "prev_tag=$PREV_TAG" >> $GITHUB_OUTPUT
+
+      - name: Generate changelog from non-merge commits
+        id: changelog
+        shell: bash
+        run: |
+          set -euo pipefail
+          PREV_TAG="${{ steps.vars.outputs.prev_tag }}"
+          if [[ -n "$PREV_TAG" ]]; then
+            RANGE="$PREV_TAG..HEAD"
+          else
+            RANGE=""
+          fi
+          echo "Collecting commits in range: ${RANGE:-FULL HISTORY}"
+          LOG=$(git log --no-merges --pretty=format:'- %s (%h)' $RANGE)
+          echo "log<<EOF" >> $GITHUB_OUTPUT
+          echo "$LOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./.docker/Dockerfile
+          push: true
+          build-args: |
+            VERSION=${{ steps.vars.outputs.version }}
+            GIT_SHA=${{ github.sha }}
+            GITHUB_REPOSITORY=${{ github.repository }}
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/lumina:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/lumina:${{ steps.vars.outputs.version }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.vars.outputs.version }}
+          name: v${{ steps.vars.outputs.version }}
+          body: |
+            Changes since last release:
+            
+            ${{ steps.changelog.outputs.log }}
+          prerelease: ${{ github.event.inputs.prerelease == 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

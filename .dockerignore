@@ -1,0 +1,62 @@
+# Exclude VCS & editors
+.git
+.gitignore
+.vscode
+.idea
+
+# Node & logs
+#**/node_modules
+**/.turbo
+**/.next
+#**/dist
+**/coverage
+**/.DS_Store
+**/npm-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+
+# Tests, docs, examples
+**/__tests__
+**/*.spec.*
+**/*.test.*
+**/docs
+**/test
+
+# Local env & configs
+.env*
+!.env.example
+**/*.local.*
+**/*.dev.*
+
+# Docker build context: keep only what we need for build & runtime
+# Allow lists to include sources, package manifests, lockfile, configs
+# Note: dockerignore doesn't have true allowlists; instead we ignore broadly and then re-include below using !
+
+# Re-include package manifests and lock/workspace files
+!package.json
+!pnpm-lock.yaml
+!pnpm-workspace.yaml
+!turbo.json
+!tsconfig.json
+
+# Re-include app/package manifests and sources
+!apps/**/package.json
+!apps/**/src/**
+!apps/**/public/**
+!apps/**/index.html
+!apps/**/vite.config.*
+!apps/**/tsconfig.*
+
+# Re-include packages manifests and sources
+!packages/**/package.json
+!packages/**/src/**
+!packages/**/tsconfig.*
+
+# Keep shared workflow configs used at build time
+!workflow/**
+
+# Keep .docker assets
+!.docker/**
+
+# Keep scripts used by Docker build
+!scripts/**

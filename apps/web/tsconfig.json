@@ -1,0 +1,24 @@
+{
+  "extends": "tsconfig/react.json",
+  "include": [
+    "src",
+    "*.ts",
+    "*.mts"
+  ],
+  "compilerOptions": {
+    "target": "ES2020",
+    "moduleResolution": "node",
+    "module": "esnext",
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  }
+}
