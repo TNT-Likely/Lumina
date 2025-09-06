@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  mysql-ecommerce:
+    image: mysql:8.0
+    container_name: mysql-ecommerce-test
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123456
+      MYSQL_DATABASE: ecommerce_test
+      MYSQL_USER: ecommerce
+      MYSQL_PASSWORD: ecommerce123
+      TZ: Asia/Shanghai
+    ports:
+      - "3307:3306"  # 映射到本地3307端口，避免与现有3306冲突
+    volumes:
+      - ./data:/var/lib/mysql              # 数据持久化
+      - ./sql:/docker-entrypoint-initdb.d  # 初始化SQL脚本
+      - ./logs:/var/log/mysql              # 日志文件
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf  # 自定义配置
+    command: 
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-time-zone=+08:00
+      - --sql-mode=STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+  # 移除了 NO_AUTO_CREATE_USER
+    networks:
+      - ecommerce-network
+networks:
+  ecommerce-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+    driver: local

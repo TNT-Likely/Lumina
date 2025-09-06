@@ -1,0 +1,5 @@
+packages:
+  - 'workflow/*'
+  - 'packages/*'
+  - 'apps/*'
+  - 'test/*'

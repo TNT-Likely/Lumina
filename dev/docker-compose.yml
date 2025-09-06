@@ -1,0 +1,45 @@
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: dev-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123456
+      MYSQL_DATABASE: lumina
+      MYSQL_USER: lumina
+      MYSQL_PASSWORD: lumina123
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/sql:/docker-entrypoint-initdb.d  # 初始化SQL脚本
+      - ./mysql/logs:/var/log/mysql              # 日志文件
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf  # 自定义配置
+    command: --default-authentication-plugin=mysql_native_password
+
+  rabbitmq:
+    # build:
+    #   context: ./rabbitmq
+    #   dockerfile: Dockerfile
+    # image: rabbitmq:3.12-management
+    image: sunxiao0721/rabbitmq:3.12-delayed
+    container_name: dev-rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    volumes:
+      - ./rabbitmq/data:/var/lib/rabbitmq
+  redis:
+    image: redis:7.2
+    container_name: dev-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/data:/data
+    command: ["redis-server", "--appendonly", "yes"]

@@ -1,0 +1,7 @@
+FROM rabbitmq:3.12-management
+
+# 复制延迟消息交换机插件到插件目录并启用（离线）
+COPY plugins/rabbitmq_delayed_message_exchange-3.12.0.ez $RABBITMQ_HOME/plugins/
+RUN rabbitmq-plugins enable --offline rabbitmq_delayed_message_exchange
+
+EXPOSE 5672 15672

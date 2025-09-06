@@ -1,0 +1,41 @@
+{
+  "name": "@lumina/data",
+  "version": "1.0.0",
+  "description": "视图、仪表、报告加载器",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "lint": "eslint src/**/*.ts",
+    "type-check": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "jest": {
+    "preset": "@workflow/jest/node"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.1",
+    "@types/node": "*",
+    "@types/nodemailer": "^7.0.0",
+    "@types/pg": "^8.15.5",
+    "@workflow/jest": "workspace:*",
+    "eslint": "^8.0.1",
+    "eslint-config-custom": "workspace:*",
+    "jest": "^29.5.0",
+    "tsconfig": "workspace:*",
+    "@types/bcryptjs": "^2.4.6"
+  },
+  "dependencies": {
+    "@lumina/notify": "workspace:*",
+    "@lumina/query-engine": "workspace:*",
+    "@lumina/types": "workspace:*",
+    "@lumina/storage": "workspace:*",
+    "bcryptjs": "^2.4.3",
+    "mysql2": "^3.6.0",
+    "pg": "^8.16.3",
+    "puppeteer-core": "^24.16.2",
+    "sequelize": "^6.33.0",
+    "jsonwebtoken": "^9.0.2",
+    "typescript": "*"
+  }
+}

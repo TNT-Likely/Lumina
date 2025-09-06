@@ -1,0 +1,13 @@
+**/node_modules/**
+**/dist/**
+**/.turbo/**
+**/coverage/**
+.devcontainer/**
+.vscode/**
+
+# dev runtime folders
+/dev/**/data/**
+/dev/**/logs/**
+/dev/**/backups/**
+
+mysql-backup.sql

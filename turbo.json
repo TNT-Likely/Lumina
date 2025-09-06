@@ -1,0 +1,31 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "clean": {},
+    "lint": {},
+    "type-check": {},
+    "api-server#test": {
+      "cache": false
+    },
+    "test": {},
+    "dev": {
+      "dependsOn": [
+        "clean",
+        "^build"
+      ],
+      "cache": false,
+      "persistent": true
+    },
+    "build": {
+      "dependsOn": [
+        "^build",
+        "clean"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "start": {},
+    "stop": {}
+  }
+}

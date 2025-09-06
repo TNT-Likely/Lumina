@@ -1,0 +1,12 @@
+{
+  "extends": "./workflow/tsconfig/base.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+     "paths": {
+      "@lumina/*": ["packages/*/src"]
+    }
+  },
+  "include": [
+    "."
+  ]
+}
